@@ -23,7 +23,8 @@ autoload -Uz _zinit
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f "${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}/.p10k.zsh" ]] || source "${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}/.p10k.zsh"
 
 # lower keytimeout for addtional characters in sequence (helpful for vim mode)
 export KEYTIMEOUT=1
@@ -44,9 +45,6 @@ export ZSH_AUTOSUGGEST_COMPLETION_IGNORE="z *"
 
 zinit ice wait'0b' lucid
 zinit light zdharma/fast-syntax-highlighting
-
-zinit ice wait'0c' lucid
-zinit light zdharma/history-search-multi-word
 
 zinit ice wait'0d' lucid
 zinit light wookayin/fzf-fasd
@@ -113,3 +111,9 @@ load_tab_completion() {
 }
 
 zsh-defer load_tab_completion
+
+source_fzf() {
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+}
+zsh-defer source_fzf
