@@ -36,7 +36,7 @@ export SAVEHIST=1000
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_SPACE
 
-source $XDG_CONFIG_HOME/aliases
+[[ ! -f $XDG_CONFIG_HOME/aliases ]] || source $XDG_CONFIG_HOME/aliases
 
 zinit ice wait'0a' lucid
 zinit light zsh-users/zsh-autosuggestions
