@@ -113,8 +113,14 @@ load_tab_completion() {
 
 zsh-defer load_tab_completion
 
+# TODO: find a better way to do this check...
 source_fzf() {
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
+  # Arch
+  [[ ! -f /usr/share/fzf/key-bindings.zsh ]] || source /usr/share/fzf/key-bindings.zsh
+  [[ ! -f /usr/share/fzf/completion.zsh ]] || source /usr/share/fzf/completion.zsh
+
+  # Ubuntu
+  [[ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] || source /usr/share/doc/fzf/examples/key-bindings.zsh
+  [[ ! -f /usr/share/zsh/vendor-completions/_fzf ]] || source /usr/share/zsh/vendor-completions/_fzf
 }
 zsh-defer source_fzf
