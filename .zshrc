@@ -119,6 +119,10 @@ source_fzf() {
   [[ ! -f /usr/share/fzf/key-bindings.zsh ]] || source /usr/share/fzf/key-bindings.zsh
   [[ ! -f /usr/share/fzf/completion.zsh ]] || source /usr/share/fzf/completion.zsh
 
+  # Fedora
+  [[ ! -f /usr/share/fzf/shell/key-bindings.zsh ]] || source /usr/share/fzf/shell/key-bindings.zsh
+  [[ ! -f /usr/share/zsh/site-functions/fzf ]] || source /usr/share/zsh/site-functions/fzf
+
   # Ubuntu
   [[ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] || source /usr/share/doc/fzf/examples/key-bindings.zsh
   [[ ! -f /usr/share/zsh/vendor-completions/_fzf ]] || source /usr/share/zsh/vendor-completions/_fzf
