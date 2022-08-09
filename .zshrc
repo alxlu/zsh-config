@@ -5,13 +5,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-[[ ! -f $HOME/.ssh/id_rsa ]] || eval `keychain --quick --quiet --eval --agents ssh id_rsa`
+# [[ ! -f $HOME/.ssh/id_rsa ]] || eval `keychain --quick --quiet --eval --agents ssh id_rsa`
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
     command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.zinit/bin" && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
@@ -32,10 +32,11 @@ export KEYTIMEOUT=1
 
 # History
 export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=10000
-export SAVEHIST=1000
+export HISTSIZE=100000
+export SAVEHIST=100000
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_SPACE
+setopt HIST_EXPIRE_DUPS_FIRST
 
 [[ ! -f $XDG_CONFIG_HOME/aliases ]] || source $XDG_CONFIG_HOME/aliases
 
@@ -45,7 +46,7 @@ export ZSH_AUTOSUGGEST_USE_ASYNC="true"
 export ZSH_AUTOSUGGEST_COMPLETION_IGNORE="z *"
 
 zinit ice wait'0b' lucid
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice wait'0d' lucid
 zinit light wookayin/fzf-fasd
@@ -95,12 +96,19 @@ load_lfcd() {
 }
 
 zsh-defer load_lfcd
+bindkey -s '^p' 'launch\n'
 
 load_fasd() {
   eval "$(fasd --init auto)"
 }
 
 zsh-defer load_fasd
+
+  export NVM_DIR="$HOME/.config/nvm"
+load_nvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+}
+zsh-defer load_nvm
 
 # Basic auto/tab complete:
 load_tab_completion() {
@@ -115,6 +123,9 @@ zsh-defer load_tab_completion
 
 # TODO: find a better way to do this check...
 source_fzf() {
+  # macOS
+  [[ ! -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]] || source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+  [[ ! -f /opt/homebrew/opt/fzf/shell/completion.zsh ]] || source /opt/homebrew/opt/fzf/shell/completion.zsh
   # Arch
   [[ ! -f /usr/share/fzf/key-bindings.zsh ]] || source /usr/share/fzf/key-bindings.zsh
   [[ ! -f /usr/share/fzf/completion.zsh ]] || source /usr/share/fzf/completion.zsh
