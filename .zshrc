@@ -139,3 +139,9 @@ source_fzf() {
   [[ ! -f /usr/share/zsh/vendor-completions/_fzf ]] || source /usr/share/zsh/vendor-completions/_fzf
 }
 zsh-defer source_fzf
+
+load_direnv() {
+  eval "$(direnv hook zsh)"
+}
+
+zsh-defer load_direnv
